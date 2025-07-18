@@ -3,9 +3,11 @@
 /* Estilos para a tabela de análise de crédito (similar a fichas_salvas.css) */
 #fichasAnaliseTable th, #fichasAnaliseTable td {
     padding: 8px 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap; /* Impede quebras de linha dentro da célula */
+    overflow: hidden; /* Oculta o conteúdo que excede a largura */
+    text-overflow: ellipsis; /* Adiciona "..." se o conteúdo for cortado */
+    /* Garante que a célula se ajuste ao espaço disponível, importante com table-fixed ou larguras definidas */
+    box-sizing: border-box; 
 }
 
 #fichasAnaliseTable tbody tr:nth-child(odd) {
@@ -62,10 +64,63 @@
 }
 
 /* Para garantir que os filtros ocupem o espaço corretamente */
+/* Ajustado para usar larguras relativas e não fixas que possam estourar */
 #filtro-fichas-fn {
-    max-width: 300px;
+    /* max-width: 300px; - Removido ou ajustado, use classes Tailwind como w-full ou w-auto em vez de fixed max-width */
 }
 
 #filtro-status-analise {
-    min-width: 180px;
+    /* min-width: 180px; - Removido ou ajustado, pode causar estouro em telas muito pequenas */
+}
+
+/* Estilos adicionais para o modal de análise de crédito */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 90vw; /* Máximo de 90% da largura da viewport */
+    max-height: 90vh; /* Máximo de 90% da altura da viewport */
+    width: auto; /* Permite que a largura se ajuste ao conteúdo, dentro do max-width */
+    overflow-y: auto; /* Adiciona rolagem vertical se o conteúdo exceder max-height */
+    box-sizing: border-box;
+    min-width: 300px; /* Um tamanho mínimo para o modal em telas pequenas */
+}
+
+/* Ajustes para o botão de fechar do modal */
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Garante que o body não tenha overflow horizontal */
+body {
+    overflow-x: hidden; /* Adicionado para evitar rolagem horizontal na página */
+}
+
+/* Evita rolagem da página quando o modal está aberto */
+body.modal-open {
+    overflow: hidden; 
 }
