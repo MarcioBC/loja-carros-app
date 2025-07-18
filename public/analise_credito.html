@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Análise de Crédito F&N - Barone Automóveis</title>
+
+  <link rel="stylesheet" href="./css/tailwind.min.css" />
+  <link rel="stylesheet" href="./css/global.css" />
+  <link rel="stylesheet" href="./css/analise_credito.css" />
+  <link rel="stylesheet" href="./css/normalize.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="flex min-h-screen bg-gray-100">
+
+  <aside id="sidebar" class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-50">
+    <div class="flex items-center justify-between px-4">
+      <a href="/dashboard" class="text-white text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-car">
+          <path d="M19 17H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2Z"/>
+          <circle cx="7" cy="17" r="2"/>
+          <circle cx="17" cy="17" r="2"/>
+        </svg>
+        Barone Automóveis
+      </a>
+      <button id="close-sidebar" class="md:hidden text-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+          <path d="M18 6 6 18"/>
+          <path d="m6 6 12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav id="main-nav">
+        </nav>
+
+    <div class="px-4 pb-4">
+            <button id="logoutButton" class="w-full bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md text-sm flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="17 17 22 12 17 7"/><line x1="22" x2="10" y1="12" y2="12"/></svg>
+                Sair
+            </button>
+        </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col">
+    <header class="w-full bg-white shadow-md p-4 flex items-center justify-between z-40">
+      <button id="open-sidebar" class="text-gray-600 focus:outline-none md:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+          <line x1="4" x2="20" y1="12" y2="12"/>
+          <line x1="4" x2="20" y1="6" y2="6"/>
+          <line x1="4" x2="20" y1="18" y2="18"/>
+        </svg>
+      </button>
+      <h1 class="text-3xl font-semibold text-gray-800">Análise de Crédito F&N</h1>
+      <div id="user-info" class="text-right">
+        <p class="text-gray-700">Olá, <span id="userNameDisplay"></span>!</p>
+        <p class="text-gray-500 text-sm"><span id="userRoleDisplay"></span> da <span id="companyNameDisplay"></span></p>
+      </div>
+    </header>
+
+    <main class="flex-1 p-4 text-sm">
+      <div class="bg-white p-4 rounded-lg shadow-sm mb-4 grid grid-cols-1 md:grid-cols-7 gap-4 items-end">
+        <div class="col-span-1 md:col-span-3"> <label for="filtro-status-analise" class="block text-gray-700 text-sm font-bold mb-1">Filtrar por Status:</label>
+            <select id="filtro-status-analise" class="p-2 border border-gray-300 rounded w-full bg-white focus:ring-blue-500 focus:border-blue-500">
+                <option value="AGUARDANDO_ANALISE_FN">Aguardando Minha Análise</option>
+                <option value="EM_ANALISE_FN">Em Análise</option>
+                <option value="APROVADA_FN">Aprovadas</option>
+                <option value="REPROVADA_FN">Reprovadas</option>
+                <option value="DEVOLVIDA_AO_VENDEDOR">Devolvidas ao Vendedor</option>
+                <option value="">Todos os Status F&N</option>
+            </select>
+        </div>
+        <div class="col-span-1 md:col-span-2"> <label for="filtro-mes" class="block text-gray-700 text-sm font-bold mb-1">Mês:</label>
+            <select id="filtro-mes" class="p-2 border border-gray-300 rounded w-full bg-white focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Todos</option>
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+            </select>
+        </div>
+        <div class="col-span-1 md:col-span-2"> <label for="filtro-ano" class="block text-gray-700 text-sm font-bold mb-1">Ano:</label>
+            <select id="filtro-ano" class="p-2 border border-gray-300 rounded w-full bg-white focus:ring-blue-500 focus:border-blue-500"></select>
+        </div>
+        </div>
+
+      <section id="fichasAnaliseSection" class="bg-white p-4 rounded shadow mb-4">
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm" id="fichasAnaliseTable">
+            <thead class="bg-gray-800 text-white">
+              <tr>
+                <th class="px-2 py-1 text-left">Data Entrada</th>
+                <th class="px-2 py-1 text-left">Cliente</th>
+                <th class="px-2 py-1 text-left">CPF</th>
+                <th class="px-2 py-1 text-left">Veículo Interesse</th>
+                <th class="px-2 py-1 text-left">Status F&N</th>
+                <th class="px-2 py-1 text-left">Vendedor</th>
+                <th class="px-2 py-1 text-center">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="fichasAnaliseTableBody">
+                </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const sidebar = document.getElementById('sidebar');
+    const openSidebarBtn = document.getElementById('open-sidebar');
+    const closeSidebarBtn = document.getElementById('close-sidebar');
+
+    if (openSidebarBtn) {
+      openSidebarBtn.addEventListener('click', () => {
+        sidebar.classList.remove('-translate-x-full');
+      });
+    }
+    if (closeSidebarBtn) {
+      closeSidebarBtn.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+      });
+    }
+    document.addEventListener('click', (event) => {
+      if (window.innerWidth < 768 && sidebar && !sidebar.contains(event.target) && (!openSidebarBtn || !openSidebarBtn.contains(event.target))) {
+        sidebar.classList.add('-translate-x-full');
+      }
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        sidebar.classList.remove('-translate-x-full');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+      }
+      if (document.body.classList.contains('modal-open') && window.innerWidth < 768) {
+          document.body.classList.add('overflow-hidden');
+      } else {
+          document.body.classList.remove('overflow-hidden');
+      }
+    });
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+        const observer = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.attributeName === 'class') {
+                    if (modal.classList.contains('hidden')) {
+                        document.body.classList.remove('modal-open', 'overflow-hidden');
+                    } else {
+                        document.body.classList.add('modal-open');
+                        if (window.innerWidth < 768) {
+                            document.body.classList.add('overflow-hidden');
+                        }
+                    }
+                }
+            }
+        });
+        observer.observe(modal, { attributes: true });
+    });
+    window.dispatchEvent(new Event('resize'));
+  </script>
+
+  <script src="/js/analise_credito.js"></script>
+
+  <div id="analiseCreditoModal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h2 id="analiseModalTitle" class="text-xl font-bold mb-4">Análise de Crédito</h2>
+        <button id="closeAnaliseModalBtn" class="modal-close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+        </button>
+
+        <form id="analiseForm" class="text-sm">
+            <input type="hidden" id="analiseFichaId" />
+            <input type="hidden" id="analiseClienteIdHidden" />
+            <input type="hidden" id="analiseVeiculoIdHidden" />
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-1">Cliente:</label>
+                    <input type="text" id="analiseClienteNome" class="border p-2 rounded w-full bg-gray-100" readonly />
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-1">CPF Cliente:</label>
+                    <input type="text" id="analiseClienteCpf" class="border p-2 rounded w-full bg-gray-100" readonly />
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-gray-700 text-sm font-bold mb-1">Veículo de Interesse:</label>
+                    <input type="text" id="analiseVeiculoInfo" class="border p-2 rounded w-full bg-gray-100" readonly />
+                </div>
+
+                <div class="md:col-span-2 border p-4 rounded bg-gray-50 mt-2">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Detalhes da Análise</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="financeiraSelect" class="block text-gray-700 text-sm font-bold mb-1">Selecionar Financeira:</label>
+                            <select id="financeiraSelect" class="border p-2 rounded w-full" required>
+                                <option value="">Selecione uma Financeira</option>
+                                <option value="Banco BV">Banco BV</option>
+                                <option value="Banco Safra">Banco Safra</option>
+                                <option value="Banco Santander">Banco Santander</option>
+                                <option value="Banco Pan">Banco Pan</option>
+                                <option value="Banco C6 Bank">Banco C6 Bank</option>
+                                <option value="Outra">Outra</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="statusAnaliseSelect" class="block text-gray-700 text-sm font-bold mb-1">Status da Análise:</label>
+                            <select id="statusAnaliseSelect" class="border p-2 rounded w-full" required>
+                                <option value="">Selecione o Status</option>
+                                <option value="Em análise">Em Análise</option>
+                                <option value="Aprovada">Aprovada</option>
+                                <option value="Recusada">Recusada</option>
+                                <option value="Devolver">Devolver ao Vendedor</option>
+                            </select>
+                        </div>
+
+                        <div id="aprovacaoFields" class="md:col-span-2 grid grid-cols-2 gap-4 hidden">
+                            <div>
+                                <label for="valorAprovadoInput" class="block text-gray-700 text-sm font-bold mb-1">Valor Aprovado (R$):</label>
+                                <input type="text" id="valorAprovadoInput" placeholder="0,00" class="border p-2 rounded w-full currency-input" />
+                            </div>
+                            <div>
+                                <label for="quantidadeParcelasInput" class="block text-gray-700 text-sm font-bold mb-1">Quantidade de Parcelas:</label>
+                                <input type="number" id="quantidadeParcelasInput" placeholder="Ex: 48" class="border p-2 rounded w-full" />
+                            </div>
+                            <div>
+                                <label for="valorParcelaInput" class="block text-gray-700 text-sm font-bold mb-1">Valor das Parcelas (R$):</label>
+                                <input type="text" id="valorParcelaInput" placeholder="0,00" class="border p-2 rounded w-full currency-input" />
+                            </div>
+                            <div>
+                                <label for="vencimentoParcelaSelect" class="block text-gray-700 text-sm font-bold mb-1">Vencimento (dias):</label>
+                                <select id="vencimentoParcelaSelect" class="border p-2 rounded w-full">
+                                    <option value="">Selecione</option>
+                                    <option value="30 dias">30 dias</option>
+                                    <option value="45 dias">45 dias</option>
+                                    <option value="60 dias">60 dias</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="retornoFinanceiraInput" class="block text-gray-700 text-sm font-bold mb-1">Retorno Financeira (interna):</label>
+                                <select id="retornoFinanceiraInput" class="border p-2 rounded w-full">
+                                    <option value="">Selecione</option>
+                                    <option value="00">00</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="recusaFields" class="md:col-span-2 hidden">
+                            <div>
+                                <label for="motivoRecusaInput" class="block text-gray-700 text-sm font-bold mb-1">Motivo da Recusa:</label>
+                                <textarea id="motivoRecusaInput" rows="3" placeholder="Detalhes do motivo da recusa" class="border p-2 rounded w-full"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label for="observacoesAnaliseInput" class="block text-gray-700 text-sm font-bold mb-1">Observações da Análise:</label>
+                            <textarea id="observacoesAnaliseInput" rows="3" placeholder="Observações gerais da análise" class="border p-2 rounded w-full"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="historicoDialogoDiv" class="mt-6 p-4 bg-gray-100 rounded-lg max-h-48 overflow-y-auto hidden">
+                <h5 class="text-md font-semibold mb-2">Histórico de Diálogo:</h5>
+                <div id="historicoDialogoContent">
+                    </div>
+            </div>
+
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Salvar Análise</button>
+                <button type="button" id="cancelAnaliseModalBtn" class="bg-gray-400 hover:bg-gray-500 text-black px-4 py-2 rounded">Cancelar</button>
+            </div>
+            <p id="analiseMessage" class="text-red-500 text-sm mt-2 hidden"></p>
+        </form>
+    </div>
+</div>
+
+<div id="aprovacaoVendedorModal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h2 class="text-xl font-bold mb-4" id="andamentoAnaliseModalTitle">Andamento da Análise</h2>
+        <button id="closeAprovacaoVendedorModalBtn" class="modal-close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+        </button>
+
+        <div class="text-sm mb-4">
+            <p class="font-semibold mb-2">Veículo: <span id="aprovacaoVendedorVeiculoInfo"></span></p>
+            <p class="font-semibold mb-4">Cliente: <span id="aprovacaoVendedorClienteNome"></span> (<span id="aprovacaoVendedorClienteCpf"></span>)</p>
+
+            <h3 class="text-lg font-semibold mb-2 text-gray-700">Histórico de Análises Financeiras:</h3>
+            <div id="aprovacaoVendedorAnalisesContent" class="bg-gray-50 p-3 rounded-md mb-4 max-h-48 overflow-y-auto border border-gray-200">
+                <p class="text-gray-500 text-center" id="noAnalisesMessage">Nenhuma análise financeira encontrada para esta ficha.</p>
+            </div>
+
+            <h3 class="text-lg font-semibold mb-2 text-gray-700">Histórico de Diálogo:</h3>
+            <div id="aprovacaoVendedorDialogoContent" class="bg-gray-50 p-3 rounded-md max-h-48 overflow-y-auto border border-gray-200">
+                <p class="text-gray-500 text-center" id="noDialogoMessage">Nenhum histórico de diálogo para esta ficha.</p>
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-6">
+            <button type="button" id="closeAprovacaoVendedorModalBtnBottom" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Fechar</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

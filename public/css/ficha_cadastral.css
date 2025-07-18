@@ -1,0 +1,70 @@
+/* public/css/ficha_cadastral.css */
+
+/* Estilos para o overlay do modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    z-index: 1000; /* Garante que o modal esteja acima de outros elementos */
+}
+
+/* Estilos para o conteúdo do modal */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 900px; /* **Largura maior para a ficha cadastral** */
+    width: 95%; /* Ocupa 95% da largura disponível em telas menores */
+    max-height: 95vh; /* Limita a altura máxima para telas menores */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito grande */
+    position: relative; /* Para posicionar o botão de fechar */
+    z-index: 1001; /* Garante que o conteúdo esteja acima da overlay */
+}
+
+/* Estilo para o botão de fechar (X) dentro do modal */
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #4a5568; /* gray-700 */
+    z-index: 1002; /* Garante que o botão de fechar esteja acima de TUDO no modal */
+}
+
+/* Estilos para as partes do formulário (para o JS mostrar/esconder) */
+.ficha-part {
+    /* Pode adicionar estilos aqui se precisar */
+    
+}
+
+/* Estilo para veículos disponíveis na lista (Parte 3) */
+#listaVeiculosDisponiveis div {
+    transition: background-color 0.2s;
+}
+
+#listaVeiculosDisponiveis div:hover {
+    background-color: #ebf8ff; /* blue-100 do Tailwind */
+}
+
+/* Estilo para inputs desabilitados em modo de visualização (ficha não editável) */
+input:disabled, select:disabled, button:disabled:not(.modal-close-btn):not(.btn-editar-ficha):not(.btn-excluir-ficha) {
+    background-color: #f3f4f6 !important; /* bg-gray-100 do Tailwind */
+    cursor: not-allowed !important;
+}
+
+/* Estilo para os botões de ação na tabela quando desabilitados */
+.btn-editar-ficha[disabled],
+.btn-excluir-ficha[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

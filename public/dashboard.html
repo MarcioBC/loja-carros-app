@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Gerente - Barone Automóveis</title>
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/tailwind.min.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="flex min-h-screen bg-gray-100 font-sans">
+    <aside id="sidebar" class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-50 flex flex-col justify-between">
+        <div class="flex flex-col">
+            <div class="flex items-center justify-between px-4 mb-6">
+                <a href="/dashboard.html" class="text-white text-2xl font-semibold leading-tight">Barone<br>Automóveis</a>
+                <button id="close-sidebar" class="md:hidden text-white focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <nav id="main-nav" class="flex-grow">
+                </nav>
+        </div>
+        <div class="px-4 pb-4">
+            <button id="logoutButton" class="w-full bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md text-sm flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="17 17 22 12 17 7"/><line x1="22" x2="10" y1="12" y2="12"/></svg>
+                Sair
+            </button>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col">
+        <header class="w-full bg-white shadow-md p-4 flex items-center justify-between z-40">
+            <button id="open-sidebar" class="text-gray-600 focus:outline-none md:hidden"><i data-lucide="menu"></i></button>
+            <h1 class="text-3xl font-semibold text-gray-800">Dashboard Gerencial</h1>
+            <div id="user-info" class="text-right">
+                <p class="text-gray-700">Olá, <span id="userNameDisplay"></span>!</p>
+                <p class="text-gray-500 text-sm"><span id="userRoleDisplay"></span> da <span id="companyNameDisplay"></span></p>
+            </div>
+        </header>
+
+        <main class="flex-1 p-4">
+            <section class="bg-white p-4 rounded shadow mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Visão Geral da Empresa</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-blue-200 p-4 rounded-lg text-center shadow">
+                        <p class="text-sm text-blue-800 font-medium">Total de Veículos</p>
+                        <p id="totalVehicles" class="text-3xl font-bold text-blue-900 mt-2">...</p>
+                    </div>
+                    <div class="bg-green-200 p-4 rounded-lg text-center shadow">
+                        <p class="text-sm text-green-800 font-medium">Veículos Disponíveis</p>
+                        <p id="availableVehicles" class="text-3xl font-bold text-green-900 mt-2">...</p>
+                    </div>
+                    <div class="bg-purple-200 p-4 rounded-lg text-center shadow">
+                        <p class="text-sm text-purple-800 font-medium">Total de Clientes</p>
+                        <p id="totalClients" class="text-3xl font-bold text-purple-900 mt-2">...</p>
+                    </div>
+                    <div class="bg-yellow-100 p-4 rounded-lg text-center shadow">
+                        <p class="text-sm text-yellow-800 font-medium">Vendas Concluídas (Mês)</p>
+                        <p id="soldVehiclesMonth" class="text-3xl font-bold text-yellow-900 mt-2">...</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                    <div class="bg-red-100 p-4 rounded-lg text-center shadow">
+                        <p class="text-sm text-red-800 font-medium">Fichas em Análise F&N</p>
+                        <p id="fichasEmAnaliseFn" class="text-3xl font-bold text-red-900 mt-2">...</p>
+                    </div>
+                    <div class="bg-blue-100 p-4 rounded-lg text-center shadow">
+                        <p class="text-sm text-blue-800 font-medium">Fichas Aprovadas</p>
+                        <p id="fichasAprovadas" class="text-3xl font-bold text-blue-900 mt-2">...</p>
+                    </div>
+                    <div class="bg-green-100 p-4 rounded-lg text-center shadow">
+                        <p class="text-sm text-green-800 font-medium">Fichas em Conferência</p>
+                        <p id="fichasEmConferencia" class="text-3xl font-bold text-green-900 mt-2">...</p>
+                    </div>
+                    <div class="bg-purple-100 p-4 rounded-lg text-center shadow">
+                        <p class="text-sm text-purple-800 font-medium">Fichas em Documentação</p>
+                        <p id="fichasEmDocumentacao" class="text-3xl font-bold text-purple-900 mt-2">...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="userManagementSection" class="bg-white p-4 rounded shadow hidden">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Gerenciar Usuários</h2>
+                <button id="createUserBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md mb-4">Novo Usuário</button>
+
+                <div id="createUserForm" class="hidden bg-gray-50 p-4 rounded-lg mb-4">
+                    <h3 class="text-lg font-semibold mb-3">Criar Novo Usuário</h3>
+                    <form id="newUserForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="newUsername" class="block text-sm font-medium text-gray-700">E-mail (Login)</label>
+                            <input type="email" id="newUsername" name="username" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        </div>
+                        <div>
+                            <label for="newPassword" class="block text-sm font-medium text-gray-700">Senha</label>
+                            <input type="password" id="newPassword" name="password" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        </div>
+                        <div>
+                            <label for="newNomeCompleto" class="block text-sm font-medium text-gray-700">Nome Completo</label>
+                            <input type="text" id="newNomeCompleto" name="nomeCompleto" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        </div>
+                        <div>
+                            <label for="newUserRole" class="block text-sm font-medium text-gray-700">Papel</label>
+                            <select id="newUserRole" name="role" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                                <option value="vendedor">Vendedor</option>
+                                <option value="fn">F&N</option>
+                                <option value="conferente">Conferente</option>
+                                <option value="documentacao">Documentação</option>
+                                <option value="gerente">Gerente</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2 flex justify-end space-x-2 mt-3">
+                            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">Criar Usuário</button>
+                            <button type="button" id="cancelCreateUserBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md">Cancelar</button>
+                        </div>
+                        <div class="md:col-span-2 text-center mt-2 hidden" id="userCreationMessage"></div>
+                    </form>
+                </div>
+
+                <h3 class="text-lg font-semibold mb-3">Usuários Cadastrados</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">E-mail (Login)</th>
+                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome Completo</th>
+                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Papel</th>
+                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Empresa</th>
+                                <th class="px-2 py-1 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody" class="bg-white divide-y divide-gray-200">
+                            <tr><td colspan="5" class="text-center py-4 text-gray-500">Carregando usuários...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div id="editUserModal" class="modal-overlay hidden fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50">
+                <div class="bg-white rounded-lg p-6 w-full max-w-md shadow-xl">
+                    <h2 class="text-xl font-semibold mb-4">Editar Usuário</h2>
+                    <form id="editUserForm" class="grid grid-cols-1 gap-4">
+                        <input type="hidden" id="editUserId">
+                        <input type="hidden" id="editUserCompanyId">
+                        <div>
+                            <label for="editUserEmail" class="block text-sm font-medium text-gray-700">E-mail (Login)</label>
+                            <input type="email" id="editUserEmail" name="email" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        </div>
+                        <div>
+                            <label for="editUserName" class="block text-sm font-medium text-gray-700">Nome Completo</label>
+                            <input type="text" id="editUserName" name="nome" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        </div>
+                        <div>
+                            <label for="editUserRole" class="block text-sm font-medium text-gray-700">Papel</label>
+                            <select id="editUserRole" name="role" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                                <option value="vendedor">Vendedor</option>
+                                <option value="fn">F&N</option>
+                                <option value="conferente">Conferente</option>
+                                <option value="documentacao">Documentação</option>
+                                <option value="gerente">Gerente</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="editUserPassword" class="block text-sm font-medium text-gray-700">Nova Senha (deixe em branco para manter a atual)</label>
+                            <input type="password" id="editUserPassword" name="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        </div>
+                        <div class="flex justify-end space-x-2 mt-4">
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">Salvar Alterações</button>
+                            <button type="button" id="cancelEditUserBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md">Cancelar</button>
+                        </div>
+                        <div class="text-center mt-2 hidden" id="userEditMessage"></div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

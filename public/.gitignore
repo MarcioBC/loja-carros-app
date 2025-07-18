@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+npm-debug.log
+.env
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# MongoDB backups (MUITO IMPORTANTE!)
+*.bson
+*.json
+dump/
+backups/

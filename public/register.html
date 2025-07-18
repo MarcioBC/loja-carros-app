@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Loja de Veículos</title>
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/tailwind.min.css">
+    <link rel="stylesheet" href="./css/register.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Cadastre-se</h2>
+        <form id="registerForm">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nome Completo:</label>
+                <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Senha:</label>
+                <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+            <div class="mb-4">
+                <label for="confirmPassword" class="block text-gray-700 text-sm font-bold mb-2">Confirmar Senha:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+            <div class="mb-4">
+                <label for="companyId" class="block text-gray-700 text-sm font-bold mb-2">ID da Empresa:</label>
+                <input type="text" id="companyId" name="companyId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Cole o ID da sua empresa aqui" required>
+            </div>
+            <div class="mb-6">
+                <label for="pinCadastro" class="block text-gray-700 text-sm font-bold mb-2">PIN de Cadastro da Empresa:</label>
+                <input type="text" id="pinCadastro" name="pinCadastro" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Insira o PIN da sua empresa" required>
+            </div>
+            <div class="mb-6">
+                <label for="role" class="block text-gray-700 text-sm font-bold mb-2">Papel (Role):</label>
+                <select id="role" name="role" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <option value="">Selecione seu papel</option>
+                    <option value="vendedor">Vendedor</option>
+                    <option value="fn">Analista F&N</option>
+                    <option value="conferente">Conferente</option>
+                    <option value="documentacao">Documentação</option>
+                    <option value="gerente">Gerente</option>
+                </select>
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Registrar</button>
+            </div>
+            <p id="message" class="text-red-500 text-center text-sm mt-4 hidden"></p>
+            <p class="text-center text-gray-600 text-sm mt-4">
+                Já tem uma conta? <a href="/" class="text-blue-600 hover:underline">Faça Login</a>
+            </p>
+        </form>
+    </div>
+    <script src="/js/register.js"></script>
+</body>
+</html>

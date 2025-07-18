@@ -1,0 +1,135 @@
+/* public/css/contrato.css */
+
+/*
+ * Este arquivo define os estilos para a VISUALIZAÇÃO DO CONTRATO NA TELA.
+ * Ele complementa o Tailwind CSS e o global.css, e NÃO DEVE CONTER regras @media print.
+ * As regras de impressão são definidas exclusivamente em contrato-print.css.
+ */
+
+body {
+    /* Remova `font-family`, `margin`, `font-size`, `line-height`, `color`, `background-color`
+       se essas propriedades já estiverem sendo definidas de forma global em global.css
+       ou se você quiser que o Tailwind as controle. */
+    font-family: 'Times New Roman', Times, serif; /* Exemplo de fonte específica para o contrato na tela */
+    line-height: 1.5;
+    color: #333;
+    background-color: #f8f8f8;
+}
+
+/* Contêiner para o conteúdo principal do contrato na tela */
+.container {
+    max-width: 21cm; /* Largura A4, para simular o documento na tela */
+    min-height: 29.7cm; /* Altura A4 */
+    margin: 2cm auto; /* Margens externas, centraliza na tela */
+    padding: 2.5cm; /* Preenchimento interno */
+    background-color: #fff; /* Fundo branco para simular a folha */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidade */
+    border-radius: 8px; /* Cantos arredondados, opcional */
+}
+
+/* Títulos */
+h1 {
+    font-size: 20pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1.5cm;
+    color: #222;
+}
+
+h2 {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-top: 1cm;
+    margin-bottom: 0.5cm;
+    text-decoration: underline;
+    color: #444;
+}
+
+h3 {
+    font-size: 12pt;
+    font-weight: bold;
+    margin-top: 0.7cm;
+    margin-bottom: 0.3cm;
+    color: #555;
+}
+
+/* Parágrafos e itens de lista */
+p, ul, li {
+    margin-bottom: 0.2cm;
+    text-align: justify;
+}
+
+strong {
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none; /* Remover marcadores padrão */
+    padding: 0;
+    margin: 0;
+}
+
+ul.list-disc { /* Para listas específicas que precisam de marcadores */
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+/* Seções com bordas (para visualização em tela, se desejar) */
+section {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.8cm;
+    margin-bottom: 0.8cm;
+}
+section:last-of-type {
+    border-bottom: none;
+}
+
+/* Esconder elementos que são APENAS para impressão na visualização de tela */
+/* Por exemplo, um cabeçalho/rodapé de impressão que só aparece no papel. */
+/* .print-only-element {
+    display: none;
+} */
+
+/* Estilos para o bloco de assinaturas na TELA */
+.assinaturas {
+    margin-top: 1cm;
+    text-align: center;
+}
+
+.data-local {
+    text-align: center;
+    margin-bottom: 1.5cm;
+    font-style: italic;
+    font-size: 10pt;
+}
+
+/* Contêiner da linha de assinaturas (Vendedor/Comprador ou Testemunhas) */
+.assinatura-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end; /* Alinha as linhas base de assinatura */
+    margin-bottom: 1.5cm; /* Espaço entre cada par de assinaturas */
+}
+
+/* Coluna individual de assinatura */
+.assinatura-col {
+    width: 45%; /* Ajuste a largura para tela, 45% para dar espaço para justify-content */
+    text-align: center;
+}
+
+.linha-assinatura {
+    border-bottom: 1px solid black;
+    margin-bottom: 0.2cm;
+    height: 1px;
+    width: 80%; /* Largura da linha dentro da coluna */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Estilos para os botões "Imprimir" e "Concluir Venda" */
+.screen-only-buttons {
+    /* Estilos Tailwind já aplicados diretamente no HTML:
+       flex justify-center gap-4 mt-8
+       Mantém eles visíveis na tela. */
+}

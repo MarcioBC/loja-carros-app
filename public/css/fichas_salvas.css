@@ -1,0 +1,69 @@
+/* public/css/fichas_salvas.css */
+
+/* Estilos específicos para a tabela de fichas salvas */
+#fichasSalvasTable th, #fichasSalvasTable td {
+    padding: 8px 10px; /* Mais padding para legibilidade */
+    white-space: nowrap; /* Evita que o texto quebre */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adiciona "..." se o texto for muito longo */
+}
+
+#fichasSalvasTable tbody tr:nth-child(odd) {
+    background-color: #f9fafb; /* Lighther gray for odd rows */
+}
+
+#fichasSalvasTable tbody tr:hover {
+    background-color: #f0f4f8; /* Slightly darker on hover */
+}
+
+/* Ajustes para os botões de ação na tabela */
+.btn-visualizar-ficha,
+.btn-editar-ficha,
+.btn-excluir-ficha {
+    display: inline-flex; /* Para alinhar ícone e texto, se houver */
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.btn-visualizar-ficha svg,
+.btn-editar-ficha svg,
+.btn-excluir-ficha svg {
+    margin-right: 4px; /* Espaçamento entre ícone e texto */
+}
+
+/* Cores específicas para botões de ação */
+.btn-visualizar-ficha {
+    color: #3b82f6; /* blue-500 */
+}
+.btn-visualizar-ficha:hover {
+    background-color: #dbeafe; /* blue-100 */
+}
+
+.btn-editar-ficha {
+    color: #22c55e; /* green-500 */
+}
+.btn-editar-ficha:hover {
+    background-color: #dcfce7; /* green-100 */
+}
+
+.btn-excluir-ficha {
+    color: #ef4444; /* red-500 */
+}
+.btn-excluir-ficha:hover {
+    background-color: #fee2e2; /* red-100 */
+}
+
+/* Para garantir que o filtro ocupe o espaço corretamente */
+#filtro-fichas-salvas {
+    max-width: 300px; /* Limita a largura do campo de busca */
+}
+
+#filtro-status-fichas {
+    min-width: 180px; /* Garante que o select de status tenha um tamanho mínimo */
+}

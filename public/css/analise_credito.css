@@ -1,0 +1,71 @@
+/* public/css/analise_credito.css */
+
+/* Estilos para a tabela de análise de crédito (similar a fichas_salvas.css) */
+#fichasAnaliseTable th, #fichasAnaliseTable td {
+    padding: 8px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#fichasAnaliseTable tbody tr:nth-child(odd) {
+    background-color: #f9fafb;
+}
+
+#fichasAnaliseTable tbody tr:hover {
+    background-color: #f0f4f8;
+}
+
+/* Estilos para os botões de ação na tabela de análise */
+.btn-visualizar-ficha-fn,
+.btn-aprovar-ficha,
+.btn-reprovar-ficha,
+.btn-devolver-ficha {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 0.875rem;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* Cores específicas para botões de ação de F&N */
+.btn-visualizar-ficha-fn {
+    color: #3b82f6; /* blue-500 */
+}
+.btn-visualizar-ficha-fn:hover {
+    background-color: #dbeafe; /* blue-100 */
+}
+
+.btn-aprovar-ficha {
+    color: #22c55e; /* green-500 */
+}
+.btn-aprovar-ficha:hover {
+    background-color: #dcfce7; /* green-100 */
+}
+
+.btn-reprovar-ficha {
+    color: #ef4444; /* red-500 */
+}
+.btn-reprovar-ficha:hover {
+    background-color: #fee2e2; /* red-100 */
+}
+
+.btn-devolver-ficha {
+    color: #f97316; /* orange-500 */
+}
+.btn-devolver-ficha:hover {
+    background-color: #ffedd5; /* orange-100 */
+}
+
+/* Para garantir que os filtros ocupem o espaço corretamente */
+#filtro-fichas-fn {
+    max-width: 300px;
+}
+
+#filtro-status-analise {
+    min-width: 180px;
+}

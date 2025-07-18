@@ -1,0 +1,197 @@
+/*
+ * contrato-print.css
+ * Estilos específicos para impressão do contrato.
+ * Estes estilos serão aplicados APENAS ao imprimir a página.
+ */
+
+/* 1. Reset Básico para Impressão */
+@page {
+    margin: 2.5cm; /* Margens generosas para contrato formal. Ajuste conforme necessário. */
+    size: A4 portrait; /* Garante tamanho A4 e orientação retrato */
+}
+
+html, body {
+    height: auto; /* Altura automática para impressão, não 100vh */
+    overflow: visible; /* Garante que todo o conteúdo seja visível */
+    /* Reseta estilos do Tailwind ou de tela que possam interferir no layout geral da página */
+    display: block !important;
+    position: static !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #fff !important;
+    box-shadow: none !important;
+}
+
+body {
+    color: #000 !important; /* Texto preto para melhor contraste */
+    font-family: 'Times New Roman', Times, serif; /* Fonte clássica e legível */
+    font-size: 11pt; /* Tamanho da fonte padrão para o corpo do texto */
+    line-height: 1.6; /* Espaçamento entre linhas para melhor leitura */
+    -webkit-print-color-adjust: exact; /* Força a impressão de cores de fundo/texto se existirem (cuidado com tinta) */
+    print-color-adjust: exact; /* Padrão moderno */
+}
+
+/* Ocultar Elementos Desnecessários na Impressão */
+/* Adicione aqui qualquer classe que você use para esconder elementos de tela */
+.print-hidden, /* Classe para esconder botões e outros elementos de UI */
+.screen-only-buttons, /* Classe adicionada para os botões */
+.sidebar, /* Exemplo de sidebar */
+header.w-full.bg-white.shadow-md, /* Cabeçalho da página */
+footer, /* Rodapé da página */
+.container { /* O container de tela pode ter display: block; mas sem margens/sombras */
+    display: block !important; /* Mantenha como bloco, mas remova a visualização */
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+/* AVISO: Se o .container tem min-height/width em tela, remova isso na impressão se for um problema */
+/* Podemos forçar ocultar completamente se quiser: */
+.print-hidden, .screen-only-buttons {
+    display: none !important;
+}
+
+
+/* Remova qualquer sombra ou borda desnecessária em blocos principais */
+.shadow-md, .rounded-lg, .border {
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* 2. Controle de Quebras de Página (Page Breaks) */
+
+/* Garante que o título do contrato não seja quebrado */
+h1 {
+    page-break-after: avoid;
+    margin-bottom: 0.5cm; /* Espaço após o título */
+    text-align: center; /* Garante que o título principal esteja centralizado */
+    font-size: 16pt !important; /* Reduz ligeiramente para caber melhor na impressão */
+}
+
+/* Força uma nova página ANTES da seção de Condições da Garantia Legal */
+#garantia-legal-section {
+    page-break-before: always;
+    margin-top: 0 !important; /* Garante que não haja margem extra no topo da nova página */
+}
+
+/* Evita que blocos de conteúdo importantes sejam quebrados no meio */
+.section-block {
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 0.8cm; /* Espaçamento entre seções */
+    padding-top: 0.5cm; /* Pequeno padding para evitar que o conteúdo cole na quebra */
+}
+
+/* Ajustes para títulos de seção */
+h2, h3 {
+    page-break-after: avoid;
+    margin-top: 0.5cm;
+    margin-bottom: 0.3cm;
+}
+
+/* Para parágrafos e listas */
+p, ul, ol, li {
+    orphans: 3; /* Mínimo de 3 linhas no final da página */
+    widows: 3;  /* Mínimo de 3 linhas no início da página */
+}
+
+/* Tenta manter as linhas da tabela juntas, mas permite que a tabela quebre entre linhas */
+table {
+    page-break-inside: auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+thead {
+    display: table-header-group;
+}
+tr, img {
+    page-break-inside: avoid;
+}
+
+/* 3. Ajustes Específicos para Layout do Contrato */
+
+/* Ajustes para a lista de formas de pagamento */
+#lista-formas-pagamento {
+    margin-left: 1.5cm;
+    list-style-type: disc;
+}
+#lista-formas-pagamento li {
+    margin-bottom: 0.2cm;
+}
+
+/* Impressão de imagens */
+img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Ocultar a barra de rolagem */
+::-webkit-scrollbar {
+    width: 0 !important;
+    display: none !important;
+}
+
+
+/* --- REGRAS PARA ASSINATURAS LADO A LADO --- */
+
+/* Contêiner da linha de assinaturas (Vendedor/Comprador ou Testemunhas) */
+.assinatura-row {
+    display: flex !important; /* Força o flex */
+    flex-direction: row !important; /* Garante que os itens fiquem em linha */
+    flex-wrap: nowrap !important; /* Impede quebras de linha */
+    justify-content: space-around !important; /* Distribui o espaço entre eles */
+    width: 100% !important; /* Ocupa a largura total da área de impressão */
+    margin-top: 1cm !important; /* Espaço entre os blocos de assinaturas */
+    page-break-inside: avoid; /* Evita que a linha de assinaturas seja quebrada */
+}
+
+/* Coluna individual de assinatura (Vendedor, Comprador, Testemunha) */
+.assinatura-col {
+    width: 48% !important; /* Ocupa quase metade da largura */
+    max-width: 48% !important; /* Garante que não exceda */
+    flex-basis: 48% !important; /* Ajuda o flexbox a calcular a base de largura */
+    flex-grow: 1 !important; /* Permite crescimento */
+    flex-shrink: 1 !important; /* Permite encolhimento */
+    text-align: center !important; /* Centraliza o texto */
+    margin: 0 1% !important; /* Pequena margem lateral para separar */
+    page-break-inside: avoid; /* Evita que a coluna individual seja quebrada */
+    box-sizing: border-box !important; /* Garante que padding e border não aumentem a largura */
+}
+
+/* Bloco geral de assinaturas (section#assinaturas-pagina1, section#assinaturas-pagina2) */
+.assinaturas {
+    margin-top: 1.5cm;
+    text-align: center;
+    page-break-inside: avoid; /* Tenta manter todo o bloco de assinatura junto */
+    /* Removido page-break-after: always; daqui. Agora, quem força a quebra é #garantia-legal-section */
+}
+
+/* Apenas a seção #assinaturas-pagina2 (última) não deve ter quebra de página depois */
+#assinaturas-pagina2 {
+    page-break-after: auto !important;
+}
+
+.linha-assinatura {
+    border-bottom: 1px solid #000 !important;
+    width: 80% !important; /* Largura da linha de assinatura */
+    margin: 1cm auto 0.2cm auto !important; /* Centraliza a linha e ajusta o espaçamento */
+}
+.signature-name { /* Removido desta classe, pois agora vem do HTML */
+    font-weight: bold !important;
+    margin-top: 0.1cm !important;
+}
+.signature-id { /* Removido desta classe, pois agora vem do HTML */
+    font-size: 9pt !important;
+}
+
+/* Para o caso do cônjuge estar oculto em tela mas ter margem */
+#dados-conjuge.hidden {
+    display: none !important;
+}
+
+/* Para garantir que o título do contrato não perca o tamanho */
+.contract-title {
+    font-size: 20pt !important; /* Ajusta o tamanho da fonte para impressão */
+    line-height: 1.2 !important;
+}

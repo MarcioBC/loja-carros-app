@@ -1,0 +1,57 @@
+/* public/css/estoque.css */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que o modal fique acima de tudo */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 90%; /* Adapta para telas menores */
+    max-height: 90vh; /* Limita a altura para evitar overflow */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+    width: 600px; /* Largura padrão para desktop */
+    position: relative; /* Para posicionar o botão de fechar */
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #ef4444; /* text-red-500 */
+    line-height: 1;
+    padding: 0;
+}
+
+.modal-close-btn:hover {
+    color: #b91c1c; /* text-red-700 */
+}
+
+
+/* Responsividade básica para o modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%; /* Ocupa mais largura em telas menores */
+        padding: 1rem;
+    }
+}
+
+/* Estilo para inputs de texto que devem ter texto em uppercase */
+.uppercase-input {
+    text-transform: uppercase;
+}

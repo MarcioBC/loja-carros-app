@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Ficha Cadastral</title>
+    <link href="/css/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/tailwind.min.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Estilos adicionais se necessário */
+        .header-content {
+            background-color: #1a202c; /* tailwind-css bg-gray-900 */
+            color: #ffffff; /* tailwind-css text-white */
+        }
+        .main-content {
+            padding-top: 64px; /* Ajuste para o header fixo */
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2d3748; /* tailwind-css bg-gray-800 */
+            color: #ffffff; /* tailwind-css text-white */
+            transition: transform 0.3s ease-in-out;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            z-index: 1000;
+        }
+        .sidebar.md\:-translate-x-full { /* Sobrescreve para telas maiores */
+            transform: translateX(0) !important;
+        }
+        @media (max-width: 767px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.block {
+                transform: translateX(0);
+            }
+        }
+        .active-link {
+            background-color: #4a5568; /* Cor para link ativo */
+        }
+        .info-card {
+            @apply bg-white p-4 rounded-lg shadow-sm mb-4;
+        }
+        .info-card h3 {
+            @apply text-lg font-semibold mb-2 text-gray-800;
+        }
+        .info-item {
+            @apply flex justify-between items-center py-1 border-b border-gray-200 last:border-b-0;
+        }
+        .info-item span:first-child {
+            @apply text-gray-600 font-medium;
+        }
+        .info-item span:last-child {
+            @apply text-gray-800;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <header class="bg-gray-900 text-white p-4 flex justify-between items-center fixed w-full top-0 z-50 shadow-md">
+        <div class="flex items-center">
+            <button id="open-sidebar" class="text-white mr-4 md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            </button>
+            <h1 class="text-xl font-bold">Sistema de Gestão de Veículos</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <span class="text-sm">Empresa: <span id="companyNameDisplay">Carregando...</span></span>
+            <span class="text-sm">Usuário: <span id="userNameDisplay">Carregando...</span> (<span id="userRoleDisplay"></span>)</span>
+            <button id="logoutButton" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">Sair</button>
+        </div>
+    </header>
+
+    <aside id="sidebar" class="sidebar md:relative md:translate-x-0 -translate-x-full">
+        <div class="p-4">
+            <h2 class="text-xl font-semibold mb-4 flex justify-between items-center">
+                Menu
+                <button id="close-sidebar" class="text-white md:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </h2>
+            <nav id="main-nav">
+                </nav>
+        </div>
+    </aside>
+
+    <main class="main-content md:ml-64 p-6">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Visualização de Ficha Cadastral</h2>
+            <div id="fichaContent" class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-center text-gray-500" id="loadingMessage">Carregando ficha...</p>
+                </div>
+            <div class="mt-6 text-center">
+                <button onclick="window.history.back()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Voltar</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/view_ficha.js"></script>
+</body>
+</html>

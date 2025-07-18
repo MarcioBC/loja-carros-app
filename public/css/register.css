@@ -1,0 +1,117 @@
+/*
+ * register.css
+ * Este arquivo contém estilos específicos para a página de registro,
+ * complementando o Tailwind CSS e o global.css.
+ */
+
+/* Ajustes visuais para inputs e selects focados */
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #60a5fa; /* Tailwind blue-400 */
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.5); /* Tailwind blue-400 com opacidade */
+}
+
+/* Opcional: Estilo para mensagens de erro/sucesso */
+#message.text-red-500 {
+    font-weight: 500;
+}
+#message.text-green-500 {
+    color: #22c55e; /* Tailwind green-500 */
+    font-weight: 500;
+}
+
+/* Estilo para garantir que o body ocupe 100% da viewport height */
+html, body {
+    height: 100%;
+}
+
+/* Estilo para links dentro do parágrafo inferior */
+.text-center a {
+    text-decoration: none;
+}
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+/* Animação simples para o formulário (opcional) */
+.bg-white.p-8.rounded-lg.shadow-md {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* NOVO: Estilização para os campos de formulário dentro do card */
+.bg-white.p-8 input[type="text"],
+.bg-white.p-8 input[type="email"],
+.bg-white.p-8 input[type="password"],
+.bg-white.p-8 select {
+    /* Define uma largura máxima para os campos dentro do formulário */
+    /* Você pode ajustar este valor: 250px, 300px, 75%, 80% */
+    max-width: 300px; /* Exemplo: limitar a 300px */
+    margin-left: auto; /* Centraliza o input se ele for mais estreito que o pai */
+    margin-right: auto; /* Centraliza o input se ele for mais estreito que o pai */
+    /* Ou, se preferir alinhar à esquerda, remova margin-left/right auto */
+    /* width: 100%; /* Manter 100% da largura, mas limitado pelo max-width */
+}
+
+/* Ajusta o posicionamento do label e input para melhor alinhamento */
+.bg-white.p-8 .mb-4,
+.bg-white.p-8 .mb-6 {
+    display: flex;
+    flex-direction: column; /* Coloca o label acima do input */
+    align-items: center;   /* Centraliza label e input */
+}
+
+/* Garante que o label ocupe 100% da largura para centralizar o texto */
+.bg-white.p-8 label {
+    width: 100%;
+    text-align: center; /* Centraliza o texto do label */
+}
+
+/* Ajuste para o botão de Registrar */
+.bg-blue-600.w-full {
+    max-width: 300px; /* Limita a largura do botão também */
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Garante que as margens auto funcionem */
+}
+
+
+/* Para navegadores mobile, garante que o formulário não seja muito estreito */
+@media (max-width: 640px) {
+    .w-full.max-w-sm {
+        margin: 1rem;
+        max-width: calc(100% - 2rem);
+    }
+
+    /* Em telas menores, podemos deixar os inputs ocuparem mais largura novamente */
+    .bg-white.p-8 input[type="text"],
+    .bg-white.p-8 input[type="email"],
+    .bg-white.p-8 input[type="password"],
+    .bg-white.p-8 select {
+        max-width: 100%; /* Ocupa toda a largura disponível no card para mobile */
+    }
+
+    .bg-blue-600.w-full {
+        max-width: 100%; /* Botão também ocupa toda a largura */
+    }
+
+    .bg-white.p-8 .mb-4,
+    .bg-white.p-8 .mb-6 {
+        align-items: stretch; /* Estica os itens para preencher a largura */
+    }
+
+    .bg-white.p-8 label {
+        text-align: left; /* Alinha o texto do label à esquerda em mobile */
+    }
+}

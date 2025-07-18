@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrato de Compra e Venda de Veículo Usado</title>
+    <link rel="stylesheet" href="./css/tailwind.min.css">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/contrato-print.css" media="print">
+    <link rel="stylesheet" href="./css/normalize.css">
+    
+    <style>
+        /* Removido o estilo .contract-title aqui - será tratado no CSS */
+        /* Removido @media print { ... } aqui - será tratado em contrato-print.css */
+        /* Mantido apenas se text-left-important for realmente necessário e não coberto pelo Tailwind */
+        .text-left-important {
+            text-align: left !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex justify-center gap-4 mt-8 print-hidden screen-only-buttons">
+        <button id="printContractBtn" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
+            Imprimir Contrato
+        </button>
+        <button id="concluirVendaBtn" class="bg-green-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
+            Concluir Venda
+        </button>
+    </div>
+
+    <main class="container mx-auto p-6 bg-white shadow-md rounded-lg">
+        <section class="mb-6 pb-4 section-block"> <h1 class="contract-title font-bold uppercase text-center mb-2">Contrato de Compra e Venda de Veículo Usado</h1>
+            
+            <h2 class="text-lg font-bold underline mb-2">Dados do Vendedor</h2>
+            <p><strong>Nome/Razão Social:</strong> <span id="vendedor-nome"></span>,
+            <strong>CNPJ:</strong> <span id="vendedor-cnpj"></span>, 
+            <strong>Endereço:</strong> <span id="vendedor-endereco"></span>, 
+            <strong>Telefone:</strong> <span id="vendedor-telefone"></span>, 
+            <strong>WhatsApp:</strong> <span id="vendedor-whatsapp"></span>, 
+            <strong>Email:</strong> <span id="vendedor-email"></span>
+        </p>
+        </section>
+
+        <section class="mb-6 pb-4 section-block">
+            <h2 class="text-lg font-bold underline mb-2">Dados do Comprador</h2>
+            <p>
+                <strong>Nome Completo:</strong> <span id="comprador-nome"></span>, 
+                <strong>CPF:</strong> <span id="comprador-cpf"></span>, 
+                <strong>RG:</strong> <span id="comprador-rg"></span>, 
+                <strong>Endereço:</strong> <span id="comprador-endereco"></span>, 
+                <strong>Telefone Principal:</strong> <span id="comprador-telefone-principal"></span>, 
+                <strong>Email:</strong> <span id="comprador-email"></span>
+            </p>
+            <div id="dados-conjuge" class="mt-4 p-3 bg-gray-50 border border-gray-200 rounded hidden section-block"> <h3 class="text-md font-semibold text-gray-700 mb-2">Dados do Cônjuge</h3>
+                <p><strong>Nome:</strong> <span id="conjuge-nome"></span>, 
+                <strong>CPF:</strong> <span id="conjuge-cpf"></span>, 
+                <strong>Data Nascimento:</strong> <span id="conjuge-data-nascimento"></span>,
+                <strong>Profissão:</strong> <span id="conjuge-profissao"></span>
+                </p>
+            </div>
+        </section>
+
+        <section class="mb-6 pb-4 section-block">
+            <h2 class="text-lg font-bold underline mb-2">Dados do Veículo Vendido</h2>
+            <p>
+                <strong>Marca/Modelo:</strong> <span id="veiculo-vendido-marca-modelo"></span>, 
+                <strong>Ano Fab/Mod:</strong> <span id="veiculo-vendido-ano"></span>, 
+                <strong>Placa:</strong> <span id="veiculo-vendido-placa"></span>, 
+                <strong>Chassi:</strong> <span id="veiculo-vendido-chassi"></span>, 
+                <strong>Renavam:</strong> <span id="veiculo-vendido-renavam"></span>, 
+                <strong>Cor:</strong> <span id="veiculo-vendido-cor"></span>, 
+                <strong>Quilometragem:</strong> <span id="veiculo-vendido-quilometragem"></span>, 
+                <strong>Preço de Venda:</strong> <span id="veiculo-vendido-preco"></span>
+            </p>
+        </section>
+
+        <section class="mb-6 pb-4 section-block">
+            <h2 class="text-lg font-bold underline mb-2">Forma de Pagamento</h2>
+            <p>O valor total da venda do veículo é de <span id="valor-total-venda"></span>, e será pago da seguinte forma:</p>
+            <ul id="lista-formas-pagamento" class="list-disc ml-5"></ul>
+        </section>
+
+        <section class="condicoes-gerais mb-6 pb-4 section-block">
+            <h2 class="text-lg font-bold underline mb-2 text-center">Condições Gerais do Contrato</h2>
+            <p class="text-justify mb-2">O veículo acima é comprado no atual estado de conservação conforme foi examinado pelo comprador. A empresa garante ao comprador, o veículo acima descrito quanto a sua procedência e documentação, que não é produto de furto, bem como ausência de débitos anteriores à data da venda (multas, IPVA e quaisquer ônus que incidam sobre o veículo), O documento para a transferência de proprietário (CRV) pode ser entregue em até 30 dias (prevalecendo o que está descrito na observação do contrato de venda), e os impostos são discriminados na nota fiscal, de acordo com a Lei 13.111/2015. Anexo a este contrato de venda segue o contrato de garantia legal de 90 dias ou 3 mil km de motor e câmbio descrito que a GARANTIA LEGAL, É EM NOSSAS OFICINAS CREDENCIADAS NA CIDADE DE ORIGEM DA VENDEDORA, para veículos vendidos como repasse não tem contrato de garantia pois é vendido no estado que se encontra descrito também as condições na observação.</p>
+            <p class="text-justify mb-2">A multa para desistência sem causa justificada pelo comprador ou vendedor fica estabelecida em 20% do valor total da venda.</p>
+            <p class="text-justify mb-2">Estando de acordo e assinando em duas vias fica determinado a multa de 20% do valor da compra tanto para o comprador como para o vendedor a quebra deste contrato sem motivos adequados.</p>
+            <p class="text-justify">Para maior clareza as partes firmam a presente em duas vias de igual teor.</p>
+            <p class="text-right mt-4">De acordo,</p>
+        </section>
+
+        <section class="assinaturas text-center mt-12 pt-4 section-block" id="assinaturas-pagina1">
+            <p class="text-left italic mb-12">Sorocaba, <span id="data-contrato"></span>.</p> 
+
+            <div class="assinatura-row">
+                <div class="assinatura-col">
+                    <div class="linha-assinatura"></div>
+                    <p class="font-bold"><span id="assinatura-vendedor-nome"></span></p>
+                    <p>CNPJ: <span id="assinatura-vendedor-cnpj"></span></p>
+                </div>
+                <div class="assinatura-col">
+                    <div class="linha-assinatura"></div>
+                    <p class="font-bold"><span id="assinatura-comprador-nome"></span></p>
+                    <p>CPF: <span id="assinatura-comprador-cpf"></span></p>
+                </div>
+            </div>
+            
+            <div class="assinatura-row mt-8">
+                <div class="assinatura-col">
+                    <div class="linha-assinatura"></div>
+                    <p class="font-bold">Testemunha 1</p>
+                    <p>CPF: ______________________</p>
+                </div>
+                <div class="assinatura-col">
+                    <div class="linha-assinatura"></div>
+                    <p class="font-bold">Testemunha 2</p>
+                    <p>CPF: ______________________</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="garantia-legal mt-12 pt-8 section-block" id="garantia-legal-section">
+            <h2 class="text-lg font-bold underline mb-2 text-center">6. Condições da Garantia Legal</h2>
+            <h3 class="text-md font-bold mb-2 text-left-important">CONDIÇÕES GERAIS</h3>
+
+            <p class="text-justify mb-2"><strong>Cláusula 1ª</strong></p>
+            <p class="text-justify mb-2">a) Eventuais débitos ou restrições do veículo objeto deste contrato, tais como multa, IPVA, licenciamento, restrições financeiras, tributárias, judiciárias, dentre outras, ocorridos até a presente data, mesmo que ainda pendentes de lançamento pelo órgão competente, são de inteira responsabilidade do VENDEDOR, tornando-se o COMPRADOR responsável por quaisquer infrações e/ou encargos que o bem objeto da presente venha a sofrer após sua tradição.</p>
+            <p class="text-justify mb-2">b) Caso seja atribuída ao veículo objeto da presente, após a transferência do veículo no órgão de trânsito, eventual infração de trânsito ocorrida durante o período de responsabilidade do VENDEDOR, este se compromete a transferir para sua carteira de habilitação a pontuação correspondente.</p>
+
+            <p class="text-justify mb-2"><strong>Cláusula 2ª</strong></p>
+            <p class="text-justify mb-2">a) A presente GARANTIA LEGAL é dada pelo prazo de 90 dias corridos ou 3 mil km o que ocorrer primeiro a partir da data estabelecida neste contrato, todo e qualquer serviço ou anormalidade surgida dentro da garantia, os serviços deverão ser executados pelo VENDEDOR em nosso POSTO DE ATENDIMENTO (EM OFICINAS CREDENCIADAS COM A LOJA), Não sendo permitido a qualquer outro, retífica ou oficina, efetuar os serviços(motor e câmbio). Sendo de inteira responsabilidade do comprador o translado do veículo até a loja ou até a oficina indicada.</p>
+            <p class="text-justify mb-2">b) O perfeito funcionamento do sistema de lubrificação, assim como, refrigeração, são indispensáveis para a VALIDADE DA GARANTIA, desta forma os instrumentos de painel devem ter seu funcionamento em perfeito estado, ficando ciente que a troca de correias, óleo, filtros e funcionamento elétrico é de responsabilidade do comprador/ cliente.</p>
+            <p class="text-justify mb-2">c) A garantia ora concedida, abrange motor e câmbio. A garantia de motor restringe-se aos componentes de núcleo central, ou seja: bloco, carcaça, cabeçote, cilindro, anéis, pistões, volante do motor, bielas, árvore de manivela (virabrequim), válvulas, comando de válvulas e retentores. A de câmbio: carcaça, pinhão, coroa, engrenagens, anéis sincronizadores, juntas, retentores vedantes e rolamentos. Verificando-se defeito em alguns dos componentes relacionados o comprador deve comunicar imediatamente a vendedora para que o mecânico designado faça um exame técnico do veículo e o devido reparo se não for identificado danos por mau uso, o comprador deverá manter as características originais do veículo no prazo de 90 dias.</p>
+            <p class="text-justify mb-2">d) Fica estabelecido que o local para o atendimento da presente GARANTIA será informado pela vendedora. Outrossim, não nos responsabilizamos em hipótese alguma por despesas relativas a óleo lubrificante, combustível e similares, filtros, correias, mangueiras, assim como, deslocamento, reboque, socorro, imobilização do veículo, lucros cessantes, danos materiais ou pessoais do comprador ou de terceiro.</p>
+            <p class="text-justify mb-2">e) Estão excluídos da garantia os seguintes itens: * Peças de manutenção e desgastes pelo uso, como: vela de ignição, pneus, lâmpadas, bateria, corrente de transmissão, pastilhas de freio, lonas, disco de embreagem, cabos em geral, amortecedores, batentes, balanceamento de rodas, alinhamento de direção, coletores de admissão e escape, turbina, distribuidor, módulo de injeção eletrônica, sensores de injeção eletrônica, bicos injetores, filtros e transmissão. * Defeitos decorrentes do uso indevido do veículo. Assim como a parte elétrica e eletrônica, tais como, lanternas, piscas, buzina, limpadores e térmico, ar condicionado e vidro elétrico, engate, farol de milha e ou neblina, bateria.</p>
+            <p class="text-justify mb-2">f) A presente garantia cessará automaticamente: * Pelo decurso de sua validade. * A qualquer tempo, caso o veículo tenha sido submetido a modificações e consertos feito que alterem as caraterísticas técnicas normais do fabricante. * Inexistência do lacre nas extremidades do cabo do velocímetro.</p>
+            <p class="text-right mt-4">De acordo,</p>
+        </section>
+
+        <section class="assinaturas text-center mt-12 pt-4 section-block" id="assinaturas-pagina2">
+            <p class="text-left italic mb-12">Sorocaba, <span id="data-contrato-2"></span>.</p> 
+
+            <div class="assinatura-row">
+                <div class="assinatura-col">
+                    <div class="linha-assinatura"></div>
+                    <p class="font-bold"><span id="assinatura-vendedor-nome-2"></span></p>
+                    <p>CNPJ: <span id="assinatura-vendedor-cnpj-2"></span></p>
+                </div>
+                <div class="assinatura-col">
+                    <div class="linha-assinatura"></div>
+                    <p class="font-bold"><span id="assinatura-comprador-nome-2"></span></p>
+                    <p>CPF: <span id="assinatura-comprador-cpf-2"></span></p>
+                </div>
+            </div>
+            
+            <div class="assinatura-row mt-8">
+                <div class="assinatura-col">
+                    <div class="linha-assinatura"></div>
+                    <p class="font-bold">Testemunha 3</p>
+                    <p>CPF: ______________________</p>
+                </div>
+                <div class="assinatura-col">
+                    <div class="linha-assinatura"></div>
+                    <p class="font-bold">Testemunha 4</p>
+                    <p>CPF: ______________________</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/js/contrato.js"></script> 
+</body>
+</html>

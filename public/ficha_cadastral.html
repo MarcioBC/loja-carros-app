@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ficha Cadastral - Barone Automóveis</title>
+  
+  <link rel="stylesheet" href="./css/tailwind.min.css" /> 
+  <link rel="stylesheet" href="./css/global.css" /> 
+  <link rel="stylesheet" href="./css/ficha_cadastral.css" />
+  <link rel="stylesheet" href="./css/normalize.css"> 
+  <script src="https://unpkg.com/lucide@latest"></script> 
+</head>
+<body class="flex min-h-screen bg-gray-100">
+  <aside id="sidebar" class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-50">
+    <div class="flex items-center justify-between px-4">
+      <a href="/dashboard" class="text-white text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-car">
+          <path d="M19 17H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2Z"/>
+          <circle cx="7" cy="17" r="2"/>
+          <circle cx="17" cy="17" r="2"/>
+        </svg>
+        Barone Automóveis
+      </a>
+      <button id="close-sidebar" class="md:hidden text-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+          <path d="M18 6 6 18"/>
+          <path d="m6 6 12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav id="main-nav">
+        </nav>
+    
+    <div class="px-4 pb-4">
+            <button id="logoutButton" class="w-full bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md text-sm flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="17 17 22 12 17 7"/><line x1="22" x2="10" y1="12" y2="12"/></svg>
+                Sair
+            </button>
+        </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col">
+    <header class="w-full bg-white shadow-md p-4 flex items-center justify-between z-40">
+      <button id="open-sidebar" class="text-gray-600 focus:outline-none md:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu">
+          <line x1="4" x2="20" y1="12" y2="12"/>
+          <line x1="4" x2="20" y1="6" y2="6"/>
+          <line x1="4" x2="20" y1="18" y2="18"/>
+        </svg>
+      </button>
+      <h1 class="text-3xl font-semibold text-gray-800">Ficha Cadastral</h1>
+      <div id="user-info" class="text-right">
+        <p class="text-gray-700">Olá, <span id="userNameDisplay"></span>!</p>
+        <p class="text-gray-500 text-sm"><span id="userRoleDisplay"></span> da <span id="companyNameDisplay"></span></p>
+      </div>
+    </header>
+
+    <main class="flex-1 p-4 text-sm">
+      <div id="mainMessageArea" class="hidden text-center p-2 rounded mb-4"></div>
+      
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold text-gray-800">Minhas Fichas</h2>
+        <button id="btnNovaFichaCadastral" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+          Nova Ficha Cadastral
+        </button>
+      </div>
+
+      <div class="bg-white p-4 rounded-lg shadow-sm mb-4 grid grid-cols-1 md:grid-cols-8 gap-4 items-end">
+        <div class="col-span-1 md:col-span-4"> <label for="filtro-fichas" class="block text-gray-700 text-sm font-bold mb-1">Buscar Fichas:</label>
+            <input type="text" id="filtro-fichas" placeholder="Buscar por nome, CPF ou veículo..." class="p-2 border border-gray-300 rounded w-full focus:ring-blue-500 focus:border-blue-500" />
+        </div>
+        <div class="col-span-1 md:col-span-2"> <label for="filtro-mes" class="block text-gray-700 text-sm font-bold mb-1">Mês:</label>
+            <select id="filtro-mes" class="p-2 border border-gray-300 rounded w-full bg-white focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Todos</option>
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+            </select>
+        </div>
+        <div class="col-span-1 md:col-span-2"> <label for="filtro-ano" class="block text-gray-700 text-sm font-bold mb-1">Ano:</label>
+            <select id="filtro-ano" class="p-2 border border-gray-300 rounded w-full bg-white focus:ring-blue-500 focus:border-blue-500"></select>
+        </div>
+      </div>
+      <section class="bg-white p-4 rounded shadow">
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm" id="fichasTable">
+            <thead class="bg-gray-800 text-white">
+              <tr>
+                <th class="px-2 py-1 text-left">Data Criação</th>
+                <th class="px-2 py-1 text-left">Cliente</th>
+                <th class="px-2 py-1 text-left">CPF</th>
+                <th class="px-2 py-1 text-left">Telefone</th>
+                <th class="px-2 py-1 text-left">Veículo Interesse</th>
+                <th class="px-2 py-1 text-left">Status</th>
+                <th class="px-2 py-1 text-center">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="fichasTableBody">
+              </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    // Sidebar logic is now handled more robustly by JS directly
+    // in ficha_cadastral.js on DOMContentLoaded.
+    // The basic open/close still remains for initial setup.
+    const sidebar = document.getElementById('sidebar');
+    const openSidebarBtn = document.getElementById('open-sidebar');
+    const closeSidebarBtn = document.getElementById('close-sidebar');
+
+    if (openSidebarBtn) {
+      openSidebarBtn.addEventListener('click', () => {
+        sidebar.classList.remove('-translate-x-full');
+      });
+    }
+    if (closeSidebarBtn) {
+      closeSidebarBtn.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+      });
+    }
+    // No need for a global click listener here, as it's in the JS file.
+    // No need for window.dispatchEvent(new Event('resize')) here either.
+  </script>
+  
+  <div id="fichaCadastralModal" class="modal-overlay hidden">
+    <div class="modal-content large-modal">
+        <h2 id="fichaModalTitle" class="text-xl font-bold mb-4">Nova Ficha Cadastral</h2>
+        <button id="closeFichaModalBtn" class="modal-close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+        </button>
+
+        <form id="fichaForm">
+            <input type="hidden" id="fichaId" />
+            <input type="hidden" id="fichaClienteId" />
+            <input type="hidden" id="fichaCompanyId" />
+            <input type="hidden" id="fichaCadastradoPorId" />
+            <input type="hidden" id="fichaPodeSerEditadaPeloVendedor" />
+            <input type="hidden" id="veiculoIdSelecionado" />
+            <input type="hidden" id="veiculoPlacaSelecionado" />
+            <input type="hidden" id="veiculoChassiSelecionado" />
+            <input type="hidden" id="veiculoRenavamSelecionado" />
+
+            <div id="fichaPart1" class="ficha-part">
+                <h3 class="text-lg font-semibold mb-3">Parte 1: Cliente e Endereço Residencial</h3>
+                <div id="fichaMessage1" class="text-red-500 text-sm mb-2 hidden"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="cpfCliente" class="block text-gray-700 font-bold mb-1">CPF Cliente <span class="text-red-500">*</span>:</label>
+                        <input type="text" id="cpfCliente" class="border p-2 rounded w-full" placeholder="000.000.000-00" required />
+                    </div>
+                    <div>
+                        <label for="nomeCompletoCliente" class="block text-gray-700 font-bold mb-1">Nome Completo <span class="text-red-500">*</span>:</label>
+                        <input type="text" id="nomeCompletoCliente" class="border p-2 rounded w-full" required />
+                    </div>
+                    <div>
+                        <label for="rgCliente" class="block text-gray-700 font-bold mb-1">RG:</label>
+                        <input type="text" id="rgCliente" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="dataNascimentoCliente" class="block text-gray-700 font-bold mb-1">Data Nascimento:</label>
+                        <input type="date" id="dataNascimentoCliente" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="emailCliente" class="block text-gray-700 font-bold mb-1">E-mail:</label>
+                        <input type="email" id="emailCliente" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="telefonePrincipalCliente" class="block text-gray-700 font-bold mb-1">Telefone Principal <span class="text-red-500">*</span>:</label>
+                        <input type="text" id="telefonePrincipalCliente" class="border p-2 rounded w-full" placeholder="(00) 00000-0000" required />
+                    </div>
+                    <div>
+                        <label for="telefoneSecundarioCliente" class="block text-gray-700 font-bold mb-1">Telefone Secundário:</label>
+                        <input type="text" id="telefoneSecundarioCliente" class="border p-2 rounded w-full" placeholder="(00) 00000-0000" />
+                    </div>
+                    <div>
+                        <label for="profissaoCliente" class="block text-gray-700 font-bold mb-1">Profissão:</label>
+                        <input type="text" id="profissaoCliente" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="estadoCivilCliente" class="block text-gray-700 font-bold mb-1">Estado Civil:</label>
+                        <select id="estadoCivilCliente" class="border p-2 rounded w-full">
+                            <option value="">Selecione</option>
+                            <option value="Solteiro(a)">Solteiro(a)</option>
+                            <option value="Casado(a)">Casado(a)</option>
+                            <option value="Divorciado(a)">Divorciado(a)</option>
+                            <option value="Viúvo(a)">Viúvo(a)</option>
+                            <option value="Outro(a)">Outro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h4 class="text-md font-semibold mb-2">Endereço Residencial:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="cepResidencial" class="block text-gray-700 font-bold mb-1">CEP <span class="text-red-500">*</span>:</label>
+                        <input type="text" id="cepResidencial" class="border p-2 rounded w-full" placeholder="00000-000" required />
+                    </div>
+                    <div>
+                        <label for="ruaResidencial" class="block text-gray-700 font-bold mb-1">Rua <span class="text-red-500">*</span>:</label>
+                        <input type="text" id="ruaResidencial" class="border p-2 rounded w-full" required />
+                    </div>
+                    <div>
+                        <label for="numeroResidencial" class="block text-gray-700 font-bold mb-1">Número <span class="text-red-500">*</span>:</label>
+                        <input type="text" id="numeroResidencial" class="border p-2 rounded w-full" required />
+                    </div>
+                    <div>
+                        <label for="complementoResidencial" class="block text-gray-700 font-bold mb-1">Complemento:</label>
+                        <input type="text" id="complementoResidencial" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="bairroResidencial" class="block text-gray-700 font-bold mb-1">Bairro <span class="text-red-500">*</span>:</label>
+                        <input type="text" id="bairroResidencial" class="border p-2 rounded w-full" required />
+                    </div>
+                    <div>
+                        <label for="cidadeResidencial" class="block text-gray-700 font-bold mb-1">Cidade <span class="text-red-500">*</span>:</label>
+                        <input type="text" id="cidadeResidencial" class="border p-2 rounded w-full" required />
+                    </div>
+                    <div>
+                        <label for="estadoResidencial" class="block text-gray-700 font-bold mb-1">Estado (UF) <span class="text-red-500">*</span>:</label>
+                        <input type="text" id="estadoResidencial" class="border p-2 rounded w-full" maxlength="2" required />
+                    </div>
+                </div>
+                <div class="flex justify-end gap-2 mt-4">
+                    <button type="button" id="cancelFichaModalBtn1" class="bg-gray-400 hover:bg-gray-500 text-black px-4 py-2 rounded">Cancelar</button>
+                    <button type="button" id="btnSalvarParte1" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Salvar e Próximo</button>
+                </div>
+            </div>
+
+            <div id="fichaPart2" class="ficha-part hidden">
+                <h3 class="text-lg font-semibold mb-3">Parte 2: Dados Profissionais e Cônjuge</h3>
+                <div id="fichaMessage2" class="text-red-500 text-sm mb-2 hidden"></div>
+                <h4 class="text-md font-semibold mb-2">Dados Profissionais:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="nomeEmpresaTrabalha" class="block text-gray-700 font-bold mb-1">Nome da Empresa:</label>
+                        <input type="text" id="nomeEmpresaTrabalha" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="tempoDeEmpresa" class="block text-gray-700 font-bold mb-1">Tempo de Empresa:</label>
+                        <input type="text" id="tempoDeEmpresa" class="border p-2 rounded w-full" placeholder="Ex: 2 anos, 6 meses" />
+                    </div>
+                    <div>
+                        <label for="cargoOcupado" class="block text-gray-700 font-bold mb-1">Cargo Ocupado:</label>
+                        <input type="text" id="cargoOcupado" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="rendaBruta" class="block text-gray-700 font-bold mb-1">Renda Bruta (R$):</label>
+                        <input type="text" id="rendaBruta" class="border p-2 rounded w-full currency-input" placeholder="0,00" />
+                    </div>
+                    <div>
+                        <label for="tipoRenda" class="block text-gray-700 font-bold mb-1">Tipo de Renda:</label>
+                        <select id="tipoRenda" class="border p-2 rounded w-full">
+                            <option value="">Selecione</option>
+                            <option value="CLT">CLT</option>
+                            <option value="Autônomo">Autônomo</option>
+                            <option value="Empresário">Empresário</option>
+                            <option value="Aposentado">Aposentado</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="possuiCnh" class="block text-gray-700 font-bold mb-1">Possui CNH?</label>
+                        <select id="possuiCnh" class="border p-2 rounded w-full">
+                            <option value="true">Sim</option>
+                            <option value="false">Não</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h4 class="text-md font-semibold mb-2">Dados do Cônjuge (se aplicável):</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="nomeConjugue" class="block text-gray-700 font-bold mb-1">Nome Completo Cônjuge:</label>
+                        <input type="text" id="nomeConjugue" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="cpfConjugue" class="block text-gray-700 font-bold mb-1">CPF Cônjuge:</label>
+                        <input type="text" id="cpfConjugue" class="border p-2 rounded w-full" placeholder="000.000.000-00" />
+                    </div>
+                    <div>
+                        <label for="dataNascimentoConjugue" class="block text-gray-700 font-bold mb-1">Data Nascimento Cônjuge:</label>
+                        <input type="date" id="dataNascimentoConjugue" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="profissaoConjugue" class="block text-gray-700 font-bold mb-1">Profissão Cônjuge:</label>
+                        <input type="text" id="profissaoConjugue" class="border p-2 rounded w-full" />
+                    </div>
+                </div>
+
+                <h4 class="text-md font-semibold mb-2">Endereço Profissional:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="cepProfissional" class="block text-gray-700 font-bold mb-1">CEP Profissional:</label>
+                        <input type="text" id="cepProfissional" class="border p-2 rounded w-full" placeholder="00000-000" />
+                    </div>
+                    <div>
+                        <label for="ruaProfissional" class="block text-gray-700 font-bold mb-1">Rua Profissional:</label>
+                        <input type="text" id="ruaProfissional" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="numeroProfissional" class="block text-gray-700 font-bold mb-1">Número Profissional:</label>
+                        <input type="text" id="numeroProfissional" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="complementoProfissional" class="block text-gray-700 font-bold mb-1">Complemento Profissional:</label>
+                        <input type="text" id="complementoProfissional" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="bairroProfissional" class="block text-gray-700 font-bold mb-1">Bairro Profissional:</label>
+                        <input type="text" id="bairroProfissional" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="cidadeProfissional" class="block text-gray-700 font-bold mb-1">Cidade Profissional:</label>
+                        <input type="text" id="cidadeProfissional" class="border p-2 rounded w-full" />
+                    </div>
+                    <div>
+                        <label for="estadoProfissional" class="block text-gray-700 font-bold mb-1">Estado (UF) Profissional:</label>
+                        <input type="text" id="estadoProfissional" class="border p-2 rounded w-full" maxlength="2" />
+                    </div>
+                    <div>
+                        <label for="telefoneProfissional" class="block text-gray-700 font-bold mb-1">Telefone Profissional:</label>
+                        <input type="text" id="telefoneProfissional" class="border p-2 rounded w-full" placeholder="(00) 0000-0000" />
+                    </div>
+                </div>
+                <div class="flex justify-between gap-2 mt-4">
+                    <button type="button" id="btnVoltarParte2" class="bg-gray-400 hover:bg-gray-500 text-black px-4 py-2 rounded">Voltar</button>
+                    <button type="button" id="cancelFichaModalBtn2" class="bg-gray-400 hover:bg-gray-500 text-black px-4 py-2 rounded">Cancelar</button>
+                    <button type="button" id="btnSalvarParte2" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Salvar e Próximo</button>
+                </div>
+            </div>
+
+            <div id="fichaPart3" class="ficha-part hidden">
+                <h3 class="text-lg font-semibold mb-3">Parte 3: Veículo de Interesse</h3>
+                <div id="fichaMessage3" class="text-red-500 text-sm mb-2 hidden"></div>
+                <div class="mb-4">
+                    <label for="filtroVeiculoInteresse" class="block text-gray-700 font-bold mb-1">Buscar Veículo por Placa ou Modelo:</label>
+                    <input type="text" id="filtroVeiculoInteresse" class="border p-2 rounded w-full" placeholder="Digite a placa ou modelo" />
+                </div>
+                <div id="listaVeiculosDisponiveis" class="max-h-60 overflow-y-auto border rounded p-2 mb-4 bg-gray-50">
+                    </div>
+                <div id="detalhesVeiculoSelecionado" class="border p-4 rounded bg-blue-50 hidden">
+                    <h4 class="text-md font-semibold mb-2">Veículo Selecionado:</h4>
+                    <p>Placa: <span id="displayPlacaVeiculo" class="font-bold"></span></p>
+                    <p>Modelo: <span id="displayModeloVeiculo" class="font-bold"></span></p>
+                    <p>Ano: <span id="displayAnoVeiculo" class="font-bold"></span></p>
+                    <p>Cor: <span id="displayCorVeiculo" class="font-bold"></span></p>
+                    <p>Preço: <span id="displayPrecoVeiculo" class="font-bold text-green-700"></span></p>
+                </div>
+                <div class="flex justify-between gap-2 mt-4">
+                    <button type="button" id="btnVoltarParte3" class="bg-gray-400 hover:bg-gray-500 text-black px-4 py-2 rounded">Voltar</button>
+                    <button type="button" id="cancelFichaModalBtn3" class="bg-gray-400 hover:bg-gray-500 text-black px-4 py-2 rounded">Cancelar</button>
+                    <button type="button" id="btnSalvarVeiculo" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Salvar Veículo e Próximo</button>
+                </div>
+            </div>
+
+            <div id="fichaPart4" class="ficha-part hidden">
+                <h3 class="text-lg font-semibold mb-3">Parte 4: Observações e Finalizar</h3>
+                <div id="fichaMessage4" class="text-red-500 text-sm mb-2 hidden"></div>
+                <div class="mb-4">
+                    <label for="observacoesFicha" class="block text-gray-700 font-bold mb-1">Observações Gerais da Ficha:</label>
+                    <textarea id="observacoesFicha" rows="4" class="border p-2 rounded w-full"></textarea>
+                </div>
+                <div class="flex justify-between gap-2 mt-4">
+                    <button type="button" id="btnVoltarParte4" class="bg-gray-400 hover:bg-gray-500 text-black px-4 py-2 rounded">Voltar</button>
+                    <button type="button" id="cancelFichaModalBtn4" class="bg-gray-400 hover:bg-gray-500 text-black px-4 py-2 rounded">Cancelar</button>
+                    <button type="button" id="btnSalvarApenas" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Salvar Apenas</button>
+                    <button type="button" id="btnSalvarEEnviarAnalise" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Salvar e Enviar para Análise F&N</button>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+
+  <div id="formalizarVendaModal" class="modal-overlay hidden">
+    <div class="modal-content large-modal">
+        <h2 class="text-xl font-bold mb-4">Formalizar Venda</h2>
+        <button id="closeFormalizarVendaModalBtn" class="modal-close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+        </button>
+
+        <form id="formalizarVendaForm" class="text-sm">
+            <input type="hidden" id="formalizarVendaFichaId" />
+            <input type="hidden" id="formalizarVendaVeiculoId" />
+            <input type="hidden" id="formalizarVendaIdAprovacaoSelecionada" />
+            
+            <p class="font-semibold mb-2">Cliente: <span id="formalizarVendaClienteNome"></span></p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="border p-3 rounded bg-gray-50">
+                    <h3 class="text-lg font-semibold mb-2">Detalhes do Veículo Principal</h3>
+                    <p><span class="font-medium">Modelo:</span> <span id="formalizarVendaDisplayModelo"></span></p>
+                    <p><span class="font-medium">Placa:</span> <span id="formalizarVendaDisplayPlaca"></span></p>
+                    <p><span class="font-medium">Ano:</span> <span id="formalizarVendaDisplayAno"></span></p>
+                    <p><span class="font-medium">Cor:</span> <span id="formalizarVendaDisplayCor"></span></p>
+                    <p><span class="font-medium">Chassi:</span> <span id="formalizarVendaDisplayChassi"></span></p>
+                    <p><span class="font-medium">Renavam:</span> <span id="formalizarVendaDisplayRenavam"></span></p>
+                    <p><span class="font-medium">Quilometragem:</span> <span id="formalizarVendaDisplayKm"></span></p>
+                    <p class="mt-2 font-bold text-xl text-green-700">Preço de Venda: <span id="formalizarVendaDisplayPreco"></span></p>
+                </div>
+
+                <div class="border p-3 rounded bg-gray-50">
+                    <label for="possuiVeiculoTroca" class="block text-gray-700 font-bold mb-1">Possui veículo na troca?</label>
+                    <select id="possuiVeiculoTroca" class="border p-2 rounded w-full">
+                        <option value="">Selecione</option>
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                    </select>
+
+                    <div id="detalhesVeiculoTroca" class="mt-3 p-3 bg-blue-50 rounded hidden">
+                        <h4 class="text-md font-semibold mb-2">Veículo de Troca:</h4>
+                        <p><span class="font-medium">Marca/Modelo:</span> <span id="displayVeiculoTrocaMarcaModelo"></span></p>
+                        <p><span class="font-medium">Placa:</span> <span id="displayVeiculoTrocaPlaca"></span></p>
+                        <p><span class="font-medium">Ano:</span> <span id="displayVeiculoTrocaAno"></span></p>
+                        <p><span class="font-medium">Cor:</span> <span id="displayVeiculoTrocaCor"></span></p>
+                        <p><span class="font-medium">Chassi:</span> <span id="displayVeiculoTrocaChassi"></span></p>
+                        <p><span class="font-medium">Renavam:</span> <span id="displayVeiculoTrocaRenavam"></span></p>
+                        <p><span class="font-medium">Quilometragem:</span> <span id="displayVeiculoTrocaQuilometragem"></span></p>
+                        <p class="mt-2 font-bold text-lg text-red-700" id="displayVeiculoTrocaCusto"></p>
+                        <button type="button" id="btnCadastrarVeiculoTroca" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+                            Cadastrar/Editar Veículo de Troca
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="secaoAprovacao" class="mb-4">
+                <label for="carregarDadosAprovacao" class="block text-gray-700 font-bold mb-1">Carregar dados da última aprovação financeira?</label>
+                <select id="carregarDadosAprovacao" class="border p-2 rounded w-full">
+                    <option value="">Selecione</option>
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
+                </select>
+                <div id="detalhesAprovacaoCarregados" class="mt-3 p-3 bg-green-50 rounded hidden">
+                    <h4 class="text-md font-semibold mb-2">Detalhes da Aprovação:</h4>
+                    <p><span class="font-medium">Financeira:</span> <span id="formalizarVendaDisplayFinanceira"></span></p>
+                    <p><span class="font-medium">Valor Aprovado:</span> <span id="formalizarVendaDisplayValorAprovado" class="font-bold text-green-700"></span></p>
+                    <p><span class="font-medium">Parcelas:</span> <span id="formalizarVendaDisplayQtdParcelas"></span> de <span id="formalizarVendaDisplayValorParcela" class="font-bold text-green-700"></span></p>
+                    <p><span class="font-medium">Vencimento:</span> <span id="formalizarVendaDisplayVencimento"></span></p>
+                </div>
+            </div>
+
+            <div id="secaoPagamento" class="mb-4 border p-3 rounded bg-gray-50">
+                <h3 class="text-lg font-semibold mb-2">Formas de Pagamento</h3>
+                <div id="formasPagamentoContainer">
+                    </div>
+                <button type="button" id="btnAddFormaPagamento" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm mb-4">
+                    Adicionar Forma de Pagamento
+                </button>
+                <div class="mt-4 p-2 bg-white rounded shadow-sm">
+                    <h4 class="font-semibold text-gray-800">Pagamentos Adicionados:</h4>
+                    <ul id="formasPagamentoUl" class="list-disc pl-5">
+                        </ul>
+                    <p id="noFormasPagamentoMessage" class="text-gray-500 text-center mt-2">Nenhuma forma de pagamento adicionada.</p>
+                </div>
+                <p class="text-xl font-bold mt-4 text-right">Valor Faltante: <span id="formalizarVendaValorFaltante" class="p-2 rounded">R$ 0,00</span></p>
+            </div>
+
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" id="cancelFormalizarVendaModalBtn" class="bg-gray-400 hover:bg-gray-500 text-black px-4 py-2 rounded">Cancelar</button>
+                <button type="button" id="btnGerarContrato" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded" disabled>Gerar Contrato</button>
+                <button type="button" id="btnConcluirVenda" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded" disabled>Concluir Venda</button>
+            </div>
+            <p id="formalizarVendaMessage" class="text-red-500 text-sm mt-2 hidden"></p>
+        </form>
+    </div>
+</div>
+
+<div id="veiculoTrocaModal" class="modal-overlay hidden">
+    <div class="modal-content medium-modal">
+        <h2 class="text-xl font-bold mb-4">Cadastrar/Editar Veículo de Troca</h2>
+        <button id="closeVeiculoTrocaModalBtn" class="modal-close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+        </button>
+
+        <form id="veiculoTrocaForm" class="text-sm">
+            <input type="hidden" id="veiculoTrocaId" />
+            <input type="hidden" id="veiculoTrocaCompanyId" />
+            <input type="hidden" id="veiculoTrocaCadastradoPorId" />
+            <input type="hidden" id="veiculoTrocaStatus" />
+            <input type="hidden" id="veiculoTrocaProprietarioFichaId" />
+
+            <div id="veiculoTrocaMessage" class="text-red-500 text-sm mb-2 hidden"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="veiculoTrocaTipo" class="block text-gray-700 font-bold mb-1">Tipo <span class="text-red-500">*</span>:</label>
+                    <select id="veiculoTrocaTipo" class="border p-2 rounded w-full" required>
+                        <option value="">Selecione</option>
+                        <option value="Carro">Carro</option>
+                        <option value="Moto">Moto</option>
+                        <option value="Caminhonete">Caminhonete</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="veiculoTrocaMarca" class="block text-gray-700 font-bold mb-1">Marca <span class="text-red-500">*</span>:</label>
+                    <input type="text" id="veiculoTrocaMarca" class="border p-2 rounded w-full" required />
+                </div>
+                <div>
+                    <label for="veiculoTrocaModelo" class="block text-gray-700 font-bold mb-1">Modelo <span class="text-red-500">*</span>:</label>
+                    <input type="text" id="veiculoTrocaModelo" class="border p-2 rounded w-full" required />
+                </div>
+                <div>
+                    <label for="veiculoTrocaAno" class="block text-gray-700 font-bold mb-1">Ano <span class="text-red-500">*</span>:</label>
+                    <input type="number" id="veiculoTrocaAno" class="border p-2 rounded w-full" required />
+                </div>
+                <div>
+                    <label for="veiculoTrocaPlaca" class="block text-gray-700 font-bold mb-1">Placa:</label>
+                    <input type="text" id="veiculoTrocaPlaca" class="border p-2 rounded w-full" />
+                </div>
+                <div>
+                    <label for="veiculoTrocaCor" class="block text-gray-700 font-bold mb-1">Cor:</label>
+                    <input type="text" id="veiculoTrocaCor" class="border p-2 rounded w-full" />
+                </div>
+                <div>
+                    <label for="veiculoTrocaChassi" class="block text-gray-700 font-bold mb-1">Chassi:</label>
+                    <input type="text" id="veiculoTrocaChassi" class="border p-2 rounded w-full" />
+                </div>
+                <div>
+                    <label for="veiculoTrocaRenavam" class="block text-gray-700 font-bold mb-1">Renavam:</label>
+                    <input type="text" id="veiculoTrocaRenavam" class="border p-2 rounded w-full" />
+                </div>
+                <div>
+                    <label for="veiculoTrocaCombustivel" class="block text-gray-700 font-bold mb-1">Combustível:</label>
+                    <select id="veiculoTrocaCombustivel" class="border p-2 rounded w-full">
+                        <option value="">Selecione</option>
+                        <option value="Gasolina">Gasolina</option>
+                        <option value="Etanol">Etanol</option>
+                        <option value="Flex">Flex</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Elétrico">Elétrico</option>
+                        <option value="Híbrido">Híbrido</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="veiculoTrocaQuilometragem" class="block text-gray-700 font-bold mb-1">Quilometragem:</label>
+                    <input type="number" id="veiculoTrocaQuilometragem" class="border p-2 rounded w-full" />
+                </div>
+                <div class="md:col-span-2">
+                    <label for="veiculoTrocaObservacoes" class="block text-gray-700 font-bold mb-1">Observações:</label>
+                    <textarea id="veiculoTrocaObservacoes" rows="2" class="border p-2 rounded w-full"></textarea>
+                </div>
+            </div>
+
+            <div id="secaoDividaTroca" class="border p-3 rounded bg-gray-50 mb-4">
+                <h3 class="text-lg font-semibold mb-2">Dívidas do Veículo de Troca</h3>
+                <div id="dividasTrocaContainer">
+                    </div>
+                <button type="button" id="btnAddDividaTroca" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm mb-4">
+                    Adicionar Dívida
+                </button>
+                <div class="mt-4 p-2 bg-white rounded shadow-sm">
+                    <h4 class="font-semibold text-gray-800">Dívidas Adicionadas:</h4>
+                    <ul id="dividasTrocaUl" class="list-disc pl-5">
+                        </ul>
+                    <p id="noDividasMessage" class="text-gray-500 text-center mt-2">Nenhuma dívida adicionada.</p>
+                </div>
+                <p class="text-xl font-bold mt-4 text-right" id="totalDividaTrocaDisplay">Total Dívidas: R$ 0,00</p>
+            </div>
+
+            <div class="mb-4">
+                <label for="veiculoTrocaCustoInicial" class="block text-gray-700 font-bold mb-1">Valor de Entrada na Troca (R$):</label>
+                <input type="text" id="veiculoTrocaCustoInicial" class="border p-2 rounded w-full currency-input" placeholder="0,00" />
+                <p class="text-xl font-bold mt-2 text-right" id="veiculoTrocaCustoTotalDisplay">Custo Total: R$ 0,00</p>
+            </div>
+
+            <div id="secaoProprietarioTroca" class="border p-3 rounded bg-gray-50 mb-4">
+                <h3 class="text-lg font-semibold mb-2">Proprietário do Veículo de Troca</h3>
+                <label for="veiculoTrocaProprietarioComprador" class="block text-gray-700 font-bold mb-1">O proprietário é o mesmo comprador da ficha?</label>
+                <select id="veiculoTrocaProprietarioComprador" class="border p-2 rounded w-full">
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
+                </select>
+                <div id="dadosOutroProprietarioTroca" class="mt-3 p-3 bg-blue-50 rounded hidden">
+                    <h4 class="text-md font-semibold mb-2">Dados do Outro Proprietário:</h4>
+                    <label for="veiculoTrocaProprietarioCpf" class="block text-gray-700 font-bold mb-1">CPF do Proprietário:</label>
+                    <input type="text" id="veiculoTrocaProprietarioCpf" class="border p-2 rounded w-full" placeholder="000.000.000-00" />
+                    <label for="veiculoTrocaProprietarioNome" class="block text-gray-700 font-bold mb-1 mt-2">Nome Completo do Proprietário:</label>
+                    <input type="text" id="veiculoTrocaProprietarioNome" class="border p-2 rounded w-full" />
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" id="cancelVeiculoTrocaModalBtn" class="bg-gray-400 hover:bg-gray-500 text-black px-4 py-2 rounded">Cancelar</button>
+                <button type="submit" id="btnSalvarEtapaTroca" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Salvar Veículo de Troca</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="aprovacaoVendedorModal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h2 class="text-xl font-bold mb-4" id="andamentoAnaliseModalTitle">Andamento da Análise</h2>
+        <button id="closeAprovacaoVendedorModalBtn" class="modal-close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+        </button>
+
+        <div class="text-sm mb-4">
+            <p class="font-semibold mb-2">Veículo: <span id="aprovacaoVendedorVeiculoInfo"></span></p>
+            <p class="font-semibold mb-4">Cliente: <span id="aprovacaoVendedorClienteNome"></span> (<span id="aprovacaoVendedorClienteCpf"></span>)</p>
+            
+            <h3 class="text-lg font-semibold mb-2 text-gray-700">Histórico de Análises Financeiras:</h3>
+            <div id="aprovacaoVendedorAnalisesContent" class="bg-gray-50 p-3 rounded-md mb-4 max-h-48 overflow-y-auto border border-gray-200">
+                <p class="text-gray-500 text-center" id="noAnalisesMessage">Nenhuma análise financeira encontrada para esta ficha.</p>
+            </div>
+
+            <h3 class="text-lg font-semibold mb-2 text-gray-700">Histórico de Diálogo:</h3>
+            <div id="aprovacaoVendedorDialogoContent" class="bg-gray-50 p-3 rounded-md max-h-48 overflow-y-auto border border-gray-200">
+                <p class="text-gray-500 text-center" id="noDialogoMessage">Nenhum histórico de diálogo para esta ficha.</p>
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-6">
+            <button type="button" id="closeAprovacaoVendedorModalBtnBottom" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/ficha_cadastral.js"></script>
+
+</body>
+</html>
