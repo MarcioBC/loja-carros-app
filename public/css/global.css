@@ -4,9 +4,10 @@
 /* @import url("https://cdn.tailwindcss.com/2.2.19/tailwind.min.css"); */ 
 
 @layer base {
-  body {
+  /* Removido font-family daqui para evitar conflito com 'Inter' no dashboard.css */
+  /* body {
     font-family: Arial, sans-serif;
-  }
+  } */
 }
 
 /* Estilos básicos para o body e layout principal (desktop-first) */
@@ -15,12 +16,8 @@ body {
     padding: 0;
     background-color: #f3f4f6; /* bg-gray-100 */
     color: #374151; /* text-gray-700 */
+    overflow-x: hidden; /* **ADICIONADO: Garante que o body não tenha rolagem horizontal** */
 }
-
-/* Estilos para links ativos no menu */
-/* public/css/global.css */
-
-/* ... (seu código existente) ... */
 
 /* Estilos para links ativos no menu */
 .active-link {
@@ -28,7 +25,5 @@ body {
     font-weight: bold; /* Adiciona negrito ao texto */
     color: #FFFFFF; /* Opcional: define a cor do texto para branco para melhor contraste */
 }
-
-/* ... (seu código existente) ... */
 
 /* Você pode adicionar outros estilos customizados aqui conforme precisar */

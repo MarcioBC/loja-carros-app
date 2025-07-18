@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Gerente - Barone Automóveis</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/tailwind.min.css">
     <link rel="stylesheet" href="./css/normalize.css">
@@ -13,7 +18,7 @@
     <aside id="sidebar" class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-50 flex flex-col justify-between">
         <div class="flex flex-col">
             <div class="flex items-center justify-between px-4 mb-6">
-                <a href="/dashboard.html" class="text-white text-2xl font-semibold leading-tight">Barone<br>Automóveis</a>
+                <a href="/dashboard.html" class="text-white text-2xl font-semibold leading-tight whitespace-normal max-w-[120px]">Barone<br>Automóveis</a>
                 <button id="close-sidebar" class="md:hidden text-white focus:outline-none">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
@@ -42,7 +47,7 @@
         <main class="flex-1 p-4">
             <section class="bg-white p-4 rounded shadow mb-6">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Visão Geral da Empresa</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4"> 
                     <div class="bg-blue-200 p-4 rounded-lg text-center shadow">
                         <p class="text-sm text-blue-800 font-medium">Total de Veículos</p>
                         <p id="totalVehicles" class="text-3xl font-bold text-blue-900 mt-2">...</p>
@@ -61,7 +66,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-4">
                     <div class="bg-red-100 p-4 rounded-lg text-center shadow">
                         <p class="text-sm text-red-800 font-medium">Fichas em Análise F&N</p>
                         <p id="fichasEmAnaliseFn" class="text-3xl font-bold text-red-900 mt-2">...</p>
@@ -120,14 +125,14 @@
 
                 <h3 class="text-lg font-semibold mb-3">Usuários Cadastrados</h3>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
+                    <table class="table-auto w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">E-mail (Login)</th>
-                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome Completo</th>
-                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Papel</th>
-                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Empresa</th>
-                                <th class="px-2 py-1 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-auto">E-mail (Login)</th>
+                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-auto">Nome Completo</th>
+                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-auto">Papel</th>
+                                <th class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-auto">Empresa</th>
+                                <th class="px-2 py-1 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-auto">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="usersTableBody" class="bg-white divide-y divide-gray-200">
